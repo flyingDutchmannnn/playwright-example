@@ -1,5 +1,4 @@
 import { Page } from "playwright";
-import { locators } from "./GooglePageLocators";
 
 class GooglePage {
   private page: Page;
@@ -10,15 +9,15 @@ class GooglePage {
 
   async openGooglePage() {
     await this.page.goto("https://www.google.com");
+    await this.page.waitForLoadState("networkidle");
   }
 
   async typeSearchQuery(query: string) {
-    await this.page.fill(locators.searchBar, query);
+    await this.page.fill('[type="search"]', query);
   }
 
   async pressEnter() {
     await this.page.keyboard.press("Enter");
-    await this.page.waitForLoadState();
   }
 }
 
